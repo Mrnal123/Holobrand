@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.log
+*.tmp
+uploads/temp/
+uploads/processed/
+
+# Unreal Engine
+*.uasset
+*.umap
+*.uproject
+Saved/
+Intermediate/
+DerivedDataCache/
+
+# Node modules (if any)
+node_modules/
+
+# System files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image" href="favicon.png">
+  <title>HOLOBRAND UI Generator</title>
+  <link rel="stylesheet" href="style (2).css">
+</head>
+<body>
+  <div class="container">
+    <h1 style="font-family:Futura;">HOLOBRAND UI Generator</h1>
+
+    <div>
+      <label for="productImage">Upload Product Image:</label>
+      <input type="file" id="productImage" />
+    </div>
+
+    <div>
+      <label for="brandColor">Select Primary Brand Color:</label>
+      <input type="color" id="brandColor" style="height: 40px;" />
+    </div>
+
+    <div>
+      <label for="brandFont">Select Font:</label>
+      <select id="brandFont">
+        <option value="Roboto">Roboto</option>
+        <option value="Playfair Display">Playfair Display</option>
+        <option value="Montserrat">Montserrat</option>
+        <option value="Inter">Inter</option>
+        <option value="Noto Sans">Noto Sans</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="brandPrompt">Describe Your Brand Vibe:</label>
+      <textarea id="brandPrompt" rows="4" placeholder="e.g. Minimalist eco skincare"></textarea>
+    </div>
+
+    <div>
+      <label for="previewMode">Choose Preview Mode:</label>
+      <select id="previewMode">
+        <option value="2d">2D Web Layout</option>
+        <option value="3d">3D Immersive Mode</option>
+        <option value="mobile">Mobile Screen</option>
+      </select>
+    </div>
+
+    <button id="generateLayoutBtn">Generate Layout</button>
+
+    <!-- Loader and result -->
+    <div id="loader" style="display:none; text-align:center; margin-top:1rem;">⏳ Generating...</div>
+    <div id="resultMessage" style="text-align:center; margin-top:1rem; font-weight:bold;"></div>
+  </div>
+
+  <script type="module" src="script (2).js"></script>
+</body>
+</html>

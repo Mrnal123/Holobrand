@@ -1,0 +1,15 @@
+# Testing dependencies for HoloBrand backend
+pytest==7.4.0
+pytest-cov==4.1.0
+requests-mock==1.11.0
+
+# Core dependencies (copied from requirements.txt)
+flask==2.3.3
+Pillow==10.0.0
+requests==2.31.0
+openai==0.28.0
+python-dotenv==1.0.0
+flask-cors==4.0.0
+numpy==1.24.3
+opencv-python==4.8.0.76
+jinja2==3.1.2

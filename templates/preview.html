@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holobrand Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family={{ layout.get('typography', {}).get('primary_font', 'Playfair Display')|default('Playfair Display')|replace(' ', '+') }}:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family={{ layout.get('typography', {}).get('body_font', 'Arial')|default('Arial')|replace(' ', '+') }}:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: {{ layout.get('colors', {}).get('primary')|default('#ddcdd2') }};
+            --secondary-color: {{ layout.get('colors', {}).get('secondary')|default('#2232dd') }};
+            --accent-color: {{ layout.get('colors', {}).get('accent')|default('#b0a100') }};
+            --background-color: {{ layout.get('colors', {}).get('background')|default('#f2f0da') }};
+        }
+        
+        body {
+            font-family: '{{ layout.get("typography", {}).get("body_font")|default("Arial") }}', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: '{{ layout.get("typography", {}).get("heading_font")|default("Playfair Display") }}', serif;
+        }
+
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 1rem;
+        }
+
+        .products-section {
+            padding: 4rem 1rem;
+            background-color: var(--background-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-section {
+            padding: 4rem 1rem;
+            background-color: var(--accent-color);
+            color: rgb(0, 0, 0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .space-x-4 > * {
+                margin: 0.5rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if layout %}
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container mx-auto text-center">
+                <h1 class="text-5xl font-bold mb-6">Welcome to Our Brand</h1>
+                <p class="text-xl mb-8">Experience innovation and style</p>
+                <!-- In the hero section, update the buttons div -->
+                <div class="space-x-4">
+                    <button style="background-color: var(--secondary-color)" class="text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity">Get Started</button>
+                    <button id="preview3dBtn" onclick="view3DPreview()" style="background-color: var(--accent-color)" class="text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity">View in 3D</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Products</h2>
+                <div class="products-grid">
+                    {% for i in range(3) %}
+                    <div class="product-card">
+                        <h3 class="text-2xl font-bold mb-4">Product {{ i + 1 }}</h3>
+                        <p class="text-gray-600">Product description goes here</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="text-4xl font-bold text-center mb-12">Contact Us</h2>
+                <form class="space-y-6">
+                    <div>
+                        <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg">
+                    </div>
+                    <div>
+                        <textarea placeholder="Your Message" class="w-full px-4 py-3 rounded-lg" rows="4"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-white text-accent-color px-8 py-3 rounded-lg">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Add at the bottom of the body tag, before closing -->
+        <script>
+            function view3DPreview() {
+                const button = document.getElementById('preview3dBtn');
+                const originalText = button.textContent;
+                button.disabled = true;
+                button.textContent = 'Loading...';
+
+                fetch('/api/3d-preview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        layout: JSON.parse('{{ layout|tojson|safe }}'),
+                        preview_mode: '3d'
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.preview_url) {
+                        // Try to open with custom protocol
+                        const protocolCheck = window.location.href = data.preview_url;
+                        
+                        // Fallback to download if protocol fails
+                        setTimeout(() => {
+                            if (!document.hidden) {
+                                const downloadUrl = `/static/unreal_assets/HolobrandViewer.exe`;
+                                const downloadLink = document.createElement('a');
+                                downloadLink.href = downloadUrl;
+                                downloadLink.download = 'HolobrandViewer.exe';
+                                document.body.appendChild(downloadLink);
+                                downloadLink.click();
+                                document.body.removeChild(downloadLink);
+                            }
+                        }, 2000);
+                    } else {
+                        throw new Error('Preview URL not found in response');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Failed to launch 3D preview: ${error.message}`);
+                })
+                .finally(() => {
+                    button.disabled = false;
+                    button.textContent = originalText;
+                });
+            }
+        </script>
+
+    {% endif %}
+</body>
+</html>

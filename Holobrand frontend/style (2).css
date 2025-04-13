@@ -1,0 +1,89 @@
+body {
+  background-image: url(Untitled.png);
+  font-family: 'Futura', sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1.75s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 35px;
+  text-align: center;
+  color: #06c9ac;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 5px;
+  text-shadow: 1px 1px 0px #333, 2px 2px 0px #333, 3px 3px 0px #333;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+input[type="file"],
+input[type="color"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 8px #4f46e5;
+}
+
+button {
+  width: 100%;
+  background-color: #4f46e5;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #4338ca;
+  transform: scale(1.03);
+}
+::selection{
+  background-color: black;
+  color:aqua;
+} /*it apply when u r copying something

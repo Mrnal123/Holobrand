@@ -1,0 +1,158 @@
+{
+  "info": {
+    "_postman_id": "7e9c1b2a-4b5f-4b0a-8f0a-9b0a4b5f4b0a",
+    "name": "HoloBrand API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Upload Image",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/upload",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "upload"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Generate Layout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"brand_color\": \"#000000\",\n    \"font\": \"Arial\",\n    \"style_prompt\": \"modern\",\n    \"preview_mode\": \"2d\",\n    \"image_filename\": \"example.jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/generate-layout",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "generate-layout"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3D Preview",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"layout\": {\n        \"template\": \"modern\",\n        \"environment\": {\n            \"post_processing\": {\n                \"color_grading\": \"neutral\"\n            }\n        },\n        \"camera\": {\n            \"field_of_view\": 70,\n            \"depth_of_field\": false\n        }\n    },\n    \"image_filename\": \"example.jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/3d-preview",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "3d-preview"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get GitHub Repos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/github/repos?username=example",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "github",
+            "repos"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "example"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search GitHub Repos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/github/search?q=holobrand",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "github",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "holobrand",
+              "variable": [
+                {
+                  "key": "base_url",
+                  "value": "http://localhost:5000"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

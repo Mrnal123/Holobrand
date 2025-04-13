@@ -1,0 +1,7 @@
+# This file ensures the uploads directory is tracked by Git
+# The directory structure is:
+#
+# uploads/
+#   ├── images/      # For storing uploaded product images
+#   ├── temp/        # For temporary file storage
+#   └── processed/   # For processed/optimized images
